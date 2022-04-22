@@ -17,14 +17,14 @@ public class ClientController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(List<string>), 204)]
+    [ProducesResponseType(typeof(List<string>), 200)]
     [ProducesResponseType(typeof(List<ClientDTO>), 200)]
     public IActionResult GetAll()
     {
         if (!ModelState.IsValid) return BadRequest();
         
         var result = _clientService.GetAll();
-        if (result.Any()) return NoContent();
+        
         return Ok(result);
     }
 

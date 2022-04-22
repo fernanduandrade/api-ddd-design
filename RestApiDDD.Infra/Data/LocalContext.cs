@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RestApiDDD.Domain.Entities;
+using RestApiDDD.Infra.Data.Mapping;
 
 namespace RestApiDDD.Infra.Data;
 
@@ -9,6 +10,15 @@ public class LocalContext : DbContext
     public DbSet<Product> Products { get; set; }
     public LocalContext(DbContextOptions<LocalContext> options) : base(options) {}
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Client>(new ClientsMap().Configure);
+        modelBuilder.Entity<Product>(new ProductsMap().Configure);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.LogTo(x => System.Diagnostics.Debug.WriteLine(x));
     public override int SaveChanges()
     {
         foreach (var entry in ChangeTracker

@@ -15,6 +15,7 @@
       <Compile Remove="CrossCutting\Mapper\**" />
       <Compile Remove="CrossCutting\Interfaces\IClientMapper.cs" />
       <Compile Remove="CrossCutting\Interfaces\IProductMapper.cs" />
+      <Compile Remove="Data\Mapping\ClientsMap\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -31,10 +32,12 @@
 
     <ItemGroup>
       <EmbeddedResource Remove="CrossCutting\Mapper\**" />
+      <EmbeddedResource Remove="Data\Mapping\ClientsMap\**" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="CrossCutting\Mapper\**" />
+      <None Remove="Data\Mapping\ClientsMap\**" />
     </ItemGroup>
 
 </Project>
