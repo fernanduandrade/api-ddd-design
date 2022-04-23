@@ -56,7 +56,7 @@ public class ProductServiceApplication : IProductServiceApplication
         return new ResponseDTO
         {
             Type = ResponseTypeEnum.Success,
-            Message = "Operação concluida com sucesso.",
+            Message = $"Quantidade de produtos encontrados: {products.Count()}",
             DataResult = products,
         };
     }
