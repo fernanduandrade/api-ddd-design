@@ -24,12 +24,14 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         }
     }
 
-    public void Update(T obj)
+    public async Task<T> Update(T obj)
     {
         try
         {
             _context.Entry(obj).State = EntityState.Modified;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
+            return  obj;
         }
         catch (Exception ex)
         {
@@ -37,12 +39,13 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         }
     }
 
-    public void Remove(T obj)
+    public async Task<T> Remove(T obj)
     {
         try
         {
             _context.Set<T>().Remove(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return obj;
         }
         catch (Exception ex)
         {
@@ -50,13 +53,13 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         }
     }
 
-    public IEnumerable<T> GetAll()
+    public async Task<IEnumerable<T>> GetAll()
     {
-        return _context.Set<T>().ToList();
+        return await _context.Set<T>().ToListAsync();
     }
 
-    public T GetById(int id)
+    public async Task<T?> GetById(int id)
     {
-        return _context.Set<T>().Find(id);
+        return await _context.Set<T>().FindAsync(id);
     }
 }

@@ -3,8 +3,8 @@ namespace RestApiDDD.Domain.Core.Interfaces.Services;
 public interface IBaseService<T> where T : class
 {
     Task Add(T obj);
-    void Update(T obj);
-    void Remove(T obj);
-    IEnumerable<T> GetAll();
-    T GetById(int id);
+    Task Update(T obj);
+    Task Remove(T obj);
+    Task<IEnumerable<T>> GetAll();
+    Task<T?> GetById(int id);
 }

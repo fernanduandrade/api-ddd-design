@@ -34,27 +34,48 @@ public class ClientServiceApplication : IClientServiceApplication
         };
     }
 
-    public void Update(ClientDTO clientDto)
+    public async Task<ResponseDTO> Update(ClientDTO clientDto)
     {
         var client = _clientMapper.MapperDtoToEntity(clientDto);
-        _clientService.Update(client);
+        await _clientService.Update(client);
+
+        return new ResponseDTO{
+            Type = ResponseTypeEnum.Success,
+            Message = "Cliente atualizado com sucesso.",
+        };
     }
 
-    public void Remove(ClientDTO clientDto)
+    public async Task<ResponseDTO> Remove(ClientDTO clientDto)
     {
         var client = _clientMapper.MapperDtoToEntity(clientDto);
-        _clientService.Remove(client);
+        await _clientService.Remove(client);
+
+        return new ResponseDTO
+        {
+            Type = ResponseTypeEnum.Success,
+            Message = $"O cliente {client.Name} foi removido!",
+        };
     }
 
-    public IEnumerable<ClientDTO> GetAll()
+    public async Task<ResponseDTO> GetAll()
     {
-        var clients = _clientService.GetAll();
-        return _clientMapper.MapperListClientsDTO(clients);
+        var clients = await _clientService.GetAll();
+        return new ResponseDTO
+        {
+            Type = ResponseTypeEnum.Success,
+            Message = $"Quantidade de registros encontrados: ${clients.Count()}",
+            DataResult = clients.ToList(),
+        };
     }
 
-    public ClientDTO GetById(int id)
+    public async Task<ResponseDTO> GetById(int id)
     {
-        var client = _clientService.GetById(id);
-        return _clientMapper.MapperEntityToDto(client);
+        var client = await _clientService.GetById(id);
+        return new ResponseDTO
+        {
+            Type = ResponseTypeEnum.Success,
+            Message = "Operação concluida com sucesso.",
+            DataResult = client!
+        };
     }
 }

@@ -45,7 +45,7 @@ public class ClientServiceTest
         Assert.Equal("Cliente cadastrado com sucesso.", result.Message);
     }
     
-   [ Fact]
+    [ Fact]
     public async void CreateClientServiceFailTest()
     {
         ClientDTO requestDTO = new ClientDTO
@@ -57,6 +57,4 @@ public class ClientServiceTest
         var result = await _clientServiceApplication.Add(requestDTO);
         Assert.Equal("Error ao cadastrar o cliente, nome do cliente não enviado.", result.Message);
     }
-    
-  
 }

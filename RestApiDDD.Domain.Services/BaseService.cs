@@ -16,23 +16,23 @@ public class BaseService<T> : IBaseService<T> where T : class
         await _baseRepository.Add(obj);
     }
 
-    public void Update(T obj)
+    public async Task Update(T obj)
     {
-        _baseRepository.Update(obj);
+        await _baseRepository.Update(obj);
     }
 
-    public void Remove(T obj)
+    public async Task Remove(T obj)
     {
-        _baseRepository.Remove(obj);
+        await _baseRepository.Remove(obj);
     }
 
-    public IEnumerable<T> GetAll()
+    public async Task<IEnumerable<T>> GetAll()
     {
-        return _baseRepository.GetAll();
+        return await _baseRepository.GetAll();
     }
 
-    public T GetById(int id)
+    public async Task<T?> GetById(int id)
     {
-        return _baseRepository.GetById(id);
+        return await _baseRepository.GetById(id);
     }
 }
