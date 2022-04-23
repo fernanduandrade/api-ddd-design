@@ -63,7 +63,7 @@ public class ClientServiceApplication : IClientServiceApplication
         return new ResponseDTO
         {
             Type = ResponseTypeEnum.Success,
-            Message = $"Quantidade de registros encontrados: ${clients.Count()}",
+            Message = $"Quantidade de registros encontrados: {clients.Count()}",
             DataResult = clients.ToList(),
         };
     }

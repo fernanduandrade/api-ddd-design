@@ -4,9 +4,9 @@ namespace RestApiDDD.Application.Interfaces;
 
 public interface IProductServiceApplication
 {
-    void Add(ProductDTO productDTO);
-    void Update(ProductDTO productDTO);
-    void Remove(ProductDTO productDTO);
-    IEnumerable<ProductDTO> GetAll();
-    ProductDTO GetById(int id);
+    Task<ResponseDTO> Add(ProductDTO productDTO);
+    Task<ResponseDTO> Update(ProductDTO productDTO);
+    Task<ResponseDTO> Remove(ProductDTO productDTO);
+    Task<ResponseDTO> GetAll();
+    Task<ResponseDTO> GetById(int id);
 }
