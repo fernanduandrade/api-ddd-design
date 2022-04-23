@@ -18,6 +18,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore my-blog.csproj
+      run: dotnet restore RestApiDDD.API.csproj
     - name: Build
-      run: dotnet build my-blog.csproj --no-restore
+      run: dotnet build RestApiDDD.API.csproj --no-restore
