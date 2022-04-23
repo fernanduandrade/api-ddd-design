@@ -6,6 +6,6 @@ namespace RestApiDDD.Application.Interfaces.Mapper;
 public interface IProductMapper
 {
     Product MapperDtoToEntity(ProductDTO productDto);
-    IEnumerable<ProductDTO> MapperListClientsDTO(IEnumerable<Product> products);
+    IEnumerable<ProductDTO> MapperListProductsDTO(IEnumerable<Product> products);
     ProductDTO MapperEntityToDto(Product product);
 }

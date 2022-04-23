@@ -40,6 +40,15 @@ public class ProductServiceApplication : IProductServiceApplication
 
     public async Task<ResponseDTO> Remove(ProductDTO productDto)
     {
+        if(productDto.Id == 0)
+        {
+            return new ResponseDTO
+            {
+                Type = ResponseTypeEnum.Error,
+                Message = $"Não foi possível realizar a operação",
+                DataResult = false,
+            };
+        }
         var product = _productMapper.MapperDtoToEntity(productDto);
         await _productService.Remove(product);
 

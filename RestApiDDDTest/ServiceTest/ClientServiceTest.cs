@@ -25,13 +25,14 @@ public class ClientServiceTest
             _clientService,
             _clientMapper);
     }
+    
     [Fact(DisplayName="Service Constructor Must Not Throw Exception")]
     public void ClientServiceApplicationConstructorTest()
     {
         Assert.IsType<ClientServiceApplication>(_clientServiceApplication);
     }
 
-    [Fact]
+    [Fact(DisplayName="Service should create a client successively")]
     public async void CreateClientServiceSuccessTest()
     {
         ClientDTO requestDTO = new ClientDTO
@@ -45,16 +46,33 @@ public class ClientServiceTest
         Assert.Equal("Cliente cadastrado com sucesso.", result.Message);
     }
     
-    [ Fact]
+    [Fact(DisplayName="Test should fail if name is null or empty")]
     public async void CreateClientServiceFailTest()
     {
         ClientDTO requestDTO = new ClientDTO
         {
             LastName = "Andrade",
             Email = "nando@gmail.com",
-            
         };
         var result = await _clientServiceApplication.Add(requestDTO);
         Assert.Equal("Error ao cadastrar o cliente, nome do cliente não enviado.", result.Message);
+    }
+
+    [Theory(DisplayName="Delete client should return true if id is greater than 0 and false if equal a 0 or null")]
+    [InlineData(0, false)]
+    [InlineData(null, false)]
+    [InlineData(6, true)]
+    public async void DeleteClientServiceSuccessTest(int id, bool expected)
+    {
+        ClientDTO requestDTO = new ClientDTO
+        {
+            Id = id,
+            Name = "Fernando",
+            LastName = "Andrade",
+            Email = "nando@gmail.com",
+        };
+
+        var result = await _clientServiceApplication.Remove(requestDTO);
+        Assert.Equal(expected, result.DataResult);
     }
 }

@@ -47,13 +47,24 @@ public class ClientServiceApplication : IClientServiceApplication
 
     public async Task<ResponseDTO> Remove(ClientDTO clientDto)
     {
+        if(clientDto.Id == 0)
+        {
+            return new ResponseDTO
+            {
+                Type = ResponseTypeEnum.Error,
+                Message = $"Não foi possível realizar a operação",
+                DataResult = false,
+            };
+        }
+
         var client = _clientMapper.MapperDtoToEntity(clientDto);
         await _clientService.Remove(client);
 
         return new ResponseDTO
         {
             Type = ResponseTypeEnum.Success,
-            Message = $"O cliente {client.Name} foi removido!",
+            Message = $"Cliente foi removido!",
+            DataResult = true,
         };
     }
 

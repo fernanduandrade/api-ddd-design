@@ -16,7 +16,7 @@ public class ProductMapper : IProductMapper
         };
     }
 
-    public IEnumerable<ProductDTO> MapperListClientsDTO(IEnumerable<Product> products)
+    public IEnumerable<ProductDTO> MapperListProductsDTO(IEnumerable<Product> products)
     {
         return products.Select(product => new ProductDTO()
         {
