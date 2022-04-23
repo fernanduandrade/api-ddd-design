@@ -4,7 +4,7 @@ namespace RestApiDDD.Application.Interfaces;
 
 public interface IClientServiceApplication
 {
-    void Add(ClientDTO clientDTO);
+    Task<ResponseDTO> Add(ClientDTO clientDTO);
     void Update(ClientDTO clientDto);
     void Remove(ClientDTO clientDto);
     IEnumerable<ClientDTO> GetAll();

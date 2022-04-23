@@ -1,6 +1,7 @@
 using RestApiDDD.Application.DTOs;
 using RestApiDDD.Application.Interfaces;
 using RestApiDDD.Domain.Core.Interfaces.Services;
+using RestApiDDD.Domain.Enums;
 
 namespace RestApiDDD.Application;
 
@@ -13,10 +14,24 @@ public class ClientServiceApplication : IClientServiceApplication
         _clientService = clientService;
         _clientMapper = clientMapper;
     }
-    public void Add(ClientDTO clientDto)
+    public async Task<ResponseDTO> Add(ClientDTO clientDto)
     {
+        if (string.IsNullOrEmpty(clientDto.Name))
+        {
+            return new ResponseDTO
+            {
+                Type = ResponseTypeEnum.Error,
+                Message = "Error ao cadastrar o cliente, nome do cliente não enviado.",
+            };
+        }
         var client = _clientMapper.MapperDtoToEntity(clientDto);
-        _clientService.Add(client);
+        await _clientService.Add(client);
+        
+        return new ResponseDTO
+        {
+            Type = ResponseTypeEnum.Success,
+            Message = "Cliente cadastrado com sucesso.",
+        };
     }
 
     public void Update(ClientDTO clientDto)

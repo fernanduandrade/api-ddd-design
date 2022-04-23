@@ -32,11 +32,30 @@ public class ClientServiceTest
     }
 
     [Fact]
-    public void CreateClientServiceTest()
+    public async void CreateClientServiceSuccessTest()
     {
-        ClientDTO entity = new ClientDTO();
-        _clientServiceApplication.Add(entity);
-        Assert.Equal(0, entity.Id);
+        ClientDTO requestDTO = new ClientDTO
+        {
+            Name = "Fernando",
+            LastName = "Andrade",
+            Email = "nando@gmail.com",
+            
+        };
+        var result = await _clientServiceApplication.Add(requestDTO);
+        Assert.Equal("Cliente cadastrado com sucesso.", result.Message);
+    }
+    
+   [ Fact]
+    public async void CreateClientServiceFailTest()
+    {
+        ClientDTO requestDTO = new ClientDTO
+        {
+            LastName = "Andrade",
+            Email = "nando@gmail.com",
+            
+        };
+        var result = await _clientServiceApplication.Add(requestDTO);
+        Assert.Equal("Error ao cadastrar o cliente, nome do cliente não enviado.", result.Message);
     }
     
   

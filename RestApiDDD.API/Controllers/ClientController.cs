@@ -40,11 +40,11 @@ public class ClientController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(string), 400)]
     [ProducesResponseType(typeof(ClientDTO), 201)]
-    public ActionResult Create(ClientDTO client)
+    public async Task<ActionResult> Create(ClientDTO client)
     {
         if (!ModelState.IsValid) return BadRequest();
-        _clientService.Add(client);
-        return Ok("Cliente cadastrado com sucesso.");
+        var result = await _clientService.Add(client);
+        return Ok(result);
     }
     
     [HttpPut]

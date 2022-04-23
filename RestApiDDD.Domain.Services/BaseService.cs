@@ -11,9 +11,9 @@ public class BaseService<T> : IBaseService<T> where T : class
     {
         _baseRepository = baseRepository;
     }
-    public void Add(T obj)
+    public async Task Add(T obj)
     {
-        _baseRepository.Add(obj);
+        await _baseRepository.Add(obj);
     }
 
     public void Update(T obj)

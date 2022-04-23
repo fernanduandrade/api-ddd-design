@@ -11,12 +11,12 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         _context = context;
     }
-    public void Add(T obj)
+    public async Task<T> Add(T obj)
     {
         try
-        {
-            _context.Set<T>().Add(obj);
-            _context.SaveChangesAsync();
+        {   _context.Set<T>().Add(obj);
+            await _context.SaveChangesAsync();
+            return obj;
         }
         catch (Exception ex)
         {
