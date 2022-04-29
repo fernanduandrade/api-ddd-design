@@ -10,12 +10,9 @@ namespace RestApiDDD.API.Controllers;
 public class ClientController : ControllerBase
 {
     private readonly IClientServiceApplication _clientService;
-    private readonly IMemoryCache _memoryCache; 
-    private const string CLIENTS_KEY = "CLIENTS";
     public ClientController(IClientServiceApplication clientService, IMemoryCache memoryCache)
     {
         _clientService = clientService;
-        _memoryCache = memoryCache;
     }
 
     [HttpGet]
@@ -24,13 +21,7 @@ public class ClientController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         if(!ModelState.IsValid) return BadRequest();
-        if(_memoryCache.TryGetValue(CLIENTS_KEY, out ResponseDTO result))
-        {
-            return Ok(result);
-        }
-
-        result = await _clientService.GetAll();
-        _memoryCache.Set(CLIENTS_KEY, result);
+        var result = await _clientService.GetAll();
         return Ok(result);
     }
 
@@ -51,6 +42,7 @@ public class ClientController : ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest();
         var result = await _clientService.Add(client);
+
         return Created("", result);
     }
     
