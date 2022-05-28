@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestApiDDD.Application.DTOs;
 using RestApiDDD.Application.Interfaces;
@@ -15,7 +16,7 @@ public class ProductController : ControllerBase
         _productService = productService;
     }
     
-    [HttpGet]
+    [HttpGet, Authorize]
     [ProducesResponseType(typeof(List<string>), 200)]
     [ProducesResponseType(typeof(List<ProductDTO>), 200)]
     public async Task<IActionResult> GetAll()
