@@ -24,7 +24,7 @@ namespace RestApiDDD.API.Controllers
             {
                 return BadRequest("Request do cliente inválido");
             }
-            if (user.UserName == "macoratti" && user.Password == "Numsey#2021")
+            if (user.UserName == "user" && user.Password == "adm")
             {
                 var _secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
                 var _issuer = _config["Jwt:Issuer"];

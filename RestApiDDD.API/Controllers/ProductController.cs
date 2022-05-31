@@ -15,8 +15,9 @@ public class ProductController : ControllerBase
     {
         _productService = productService;
     }
-    
-    [HttpGet, Authorize]
+
+    [Authorize]
+    [HttpGet]
     [ProducesResponseType(typeof(List<string>), 200)]
     [ProducesResponseType(typeof(List<ProductDTO>), 200)]
     public async Task<IActionResult> GetAll()
@@ -27,6 +28,7 @@ public class ProductController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize]
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(List<string>), 400)]
     [ProducesResponseType(typeof(ProductDTO), 200)]
@@ -37,6 +39,7 @@ public class ProductController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize]
     [HttpPost]
     [ProducesResponseType(typeof(string), 400)]
     [ProducesResponseType(typeof(ProductDTO), 201)]
@@ -46,7 +49,8 @@ public class ProductController : ControllerBase
         var result = await _productService.Add(product);
         return Created("", result);
     }
-    
+
+    [Authorize]
     [HttpPut]
     [ProducesResponseType(typeof(string), 400)]
     [ProducesResponseType(typeof(string), 200)]
@@ -56,7 +60,8 @@ public class ProductController : ControllerBase
         var result = await _productService.Update(product);
         return Ok(result);
     }
-    
+
+    [Authorize]
     [HttpDelete]
     [ProducesResponseType(typeof(string), 400)]
     [ProducesResponseType(typeof(string), 200)]

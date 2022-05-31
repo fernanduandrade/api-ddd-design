@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using RestApiDDD.Application.DTOs;
@@ -15,6 +16,7 @@ public class ClientController : ControllerBase
         _clientService = clientService;
     }
 
+    [Authorize]
     [HttpGet]
     [ProducesResponseType(typeof(List<string>), 200)]
     [ProducesResponseType(typeof(List<ClientDTO>), 200)]
@@ -25,6 +27,7 @@ public class ClientController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(List<string>), 400)]
     [ProducesResponseType(typeof(ClientDTO), 200)]
@@ -35,6 +38,7 @@ public class ClientController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize]
     [HttpPost]
     [ProducesResponseType(typeof(ResponseDTO), 400)]
     [ProducesResponseType(typeof(ResponseDTO), 201)]
@@ -45,7 +49,8 @@ public class ClientController : ControllerBase
 
         return Created("", result);
     }
-    
+
+    [Authorize]
     [HttpPut]
     [ProducesResponseType(typeof(string), 400)]
     [ProducesResponseType(typeof(string), 200)]
@@ -55,7 +60,8 @@ public class ClientController : ControllerBase
         var result = await _clientService.Update(client);
         return Ok(result);
     }
-    
+
+    [Authorize]
     [HttpDelete]
     [ProducesResponseType(typeof(string), 400)]
     [ProducesResponseType(typeof(string), 200)]
