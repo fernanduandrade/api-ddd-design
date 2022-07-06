@@ -1,9 +1,9 @@
 namespace RestApiDDD.Application.DTOs;
 
-public class ProductDTO
+public record ProductDTO
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public decimal Value { get; set; }
-    public bool IsAvailable { get; set; }
+    public int Id { get; init; }
+    public string? Name { get; init; }
+    public decimal Value { get; init; }
+    public bool IsAvailable { get; init; }
 }

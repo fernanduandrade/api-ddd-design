@@ -1,10 +1,9 @@
 namespace RestApiDDD.Application.DTOs;
 
-// nunca igual a entidade original, nunca passando toda entidade do dominio
-public class ClientDTO
+public record ClientDTO
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string LastName { get; set; }
-    public string Email { get; set; }
+    public int Id { get; init; }
+    public string? Name { get; init; }
+    public string? LastName { get; init; }
+    public string? Email { get; init; }
 }

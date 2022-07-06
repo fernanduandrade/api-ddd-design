@@ -1,12 +1,12 @@
 using RestApiDDD.Application.DTOs;
 using RestApiDDD.Application.Interfaces;
+using RestApiDDD.Application.Interfaces.Mapper;
 using RestApiDDD.Domain.Entities;
 
 namespace RestApiDDD.Application.Mapper;
 
 public class ClientMapper : IClientMapper
 {
-    IEnumerable<ClientDTO> clientsDto = new List<ClientDTO>();
     public Client MapperDtoToEntity(ClientDTO clientDto)
     {
         return new Client()

@@ -11,7 +11,7 @@ public class ProductMapper : IProductMapper
         return new Product()
         {
             Id = productDto.Id,
-            Name = productDto.Name,
+            Name = productDto.Name!,
             Value = productDto.Value,
         };
     }

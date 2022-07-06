@@ -8,6 +8,7 @@ public class LocalContext : DbContext
 {
     public DbSet<Client> Clients { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<User> Users { get; set; }
     public LocalContext(DbContextOptions<LocalContext> options) : base(options) {}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -15,6 +16,7 @@ public class LocalContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Client>(new ClientsMap().Configure);
         modelBuilder.Entity<Product>(new ProductsMap().Configure);
+        modelBuilder.Entity<User>(new UsersMap().Configure);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

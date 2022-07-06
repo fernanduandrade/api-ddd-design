@@ -2,16 +2,16 @@ using RestApiDDD.Domain.Enums;
 
 namespace RestApiDDD.Application.DTOs;
 
-public class ResponseDTO
+public record ResponseDTO
 {
-    public ResponseTypeEnum Type { get; set; }
-    public string Message { get; set; }
-    public dynamic DataResult { get; set; }
+    public ResponseTypeEnum Type { get; init; }
+    public string? Message { get; init; }
+    public dynamic? DataResult { get; init; }
 }
 
-public class ResponseDTO<T>
+public record ResponseDTO<T>
 {
-    public ResponseTypeEnum Type { get; set; }
-    public string Message { get; set; }
-    public T DataResult { get; set; }
+    public ResponseTypeEnum Type { get; init; }
+    public string? Message { get; init; }
+    public T? DataResult { get; init; }
 }

@@ -1,5 +1,6 @@
 using RestApiDDD.Application.DTOs;
 using RestApiDDD.Application.Interfaces;
+using RestApiDDD.Application.Interfaces.Mapper;
 using RestApiDDD.Domain.Core.Interfaces.Services;
 using RestApiDDD.Domain.Enums;
 
@@ -26,7 +27,7 @@ public class ClientServiceApplication : IClientServiceApplication
         }
         var client = _clientMapper.MapperDtoToEntity(clientDto);
         await _clientService.Add(client);
-        
+
         return new ResponseDTO
         {
             Type = ResponseTypeEnum.Success,
@@ -39,7 +40,8 @@ public class ClientServiceApplication : IClientServiceApplication
         var client = _clientMapper.MapperDtoToEntity(clientDto);
         await _clientService.Update(client);
 
-        return new ResponseDTO{
+        return new ResponseDTO
+        {
             Type = ResponseTypeEnum.Success,
             Message = "Cliente atualizado com sucesso.",
         };
@@ -47,7 +49,7 @@ public class ClientServiceApplication : IClientServiceApplication
 
     public async Task<ResponseDTO> Remove(ClientDTO clientDto)
     {
-        if(clientDto.Id == 0)
+        if (clientDto.Id == 0)
         {
             return new ResponseDTO
             {
