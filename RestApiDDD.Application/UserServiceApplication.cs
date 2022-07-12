@@ -80,4 +80,15 @@ public class UserServiceApplication : IUserServiceApplication
             DataResult = user!
         };
     }
+
+    public async Task<ResponseDTO> GetUser(string email, string password)
+    {
+        var user = await _userService.GetUser(email, password);
+        return new ResponseDTO
+        {
+            Type = ResponseTypeEnum.Success,
+            Message = "Operação concluida com sucesso.",
+            DataResult = user!
+        };
+    }
 }

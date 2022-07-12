@@ -1,3 +1,5 @@
+using RestApiDDD.Domain.Entities;
+
 namespace RestApiDDD.Domain.Core.Interfaces.Repositories;
 
 public interface IBaseRepository<T> where T : class
@@ -8,5 +10,4 @@ public interface IBaseRepository<T> where T : class
     Task<T> Remove(T obj);
     Task<IEnumerable<T>> GetAll();
     Task<T?> GetById(int id);
-
 }

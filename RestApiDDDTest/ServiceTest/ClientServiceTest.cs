@@ -2,7 +2,7 @@ using Xunit;
 using Moq;
 using RestApiDDD.Application;
 using RestApiDDD.Application.DTOs;
-using RestApiDDD.Application.Interfaces;
+using RestApiDDD.Application.Interfaces.Mapper;
 using RestApiDDD.Domain.Core.Interfaces.Repositories;
 using RestApiDDD.Domain.Core.Interfaces.Services;
 using RestApiDDD.Domain.Services;
