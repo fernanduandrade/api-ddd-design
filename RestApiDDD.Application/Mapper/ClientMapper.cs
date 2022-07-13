@@ -14,7 +14,9 @@ public class ClientMapper : IClientMapper
             Id = clientDto.Id,
             Name = clientDto.Name,
             LastName = clientDto.LastName,
-            Email = clientDto.Email,
+            Phone = clientDto.Phone,
+            Debt = clientDto.Debt,
+            Credit = clientDto.Credit
         };
         
     }
@@ -26,7 +28,9 @@ public class ClientMapper : IClientMapper
             Id = client.Id,
             Name = client.Name,
             LastName = client.LastName,
-            Email = client.Email
+            Phone = client.Phone,
+            Debt = client.Debt,
+            Credit = client.Credit
         });
     }
 
@@ -37,7 +41,9 @@ public class ClientMapper : IClientMapper
             Id = client.Id,
             Name = client.Name,
             LastName = client.LastName,
-            Email = client.Email,
+            Phone = client.Phone,
+            Debt = client.Debt,
+            Credit = client.Credit
         };
     }
 }

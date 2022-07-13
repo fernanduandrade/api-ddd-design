@@ -25,36 +25,29 @@ namespace RestApiDDD.API.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
             var user = await _userService.GetUser(request.Email!, request.Password!);
-            if (user == null)
+
+            if (user != null)
             {
-                return BadRequest("Request do cliente inválido");
+                var _secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+                var _issuer = _config["Jwt:Issuer"];
+                var _audience = _config["Jwt:Audience"];
+
+                var signinCredentials = new SigningCredentials(_secretKey, SecurityAlgorithms.HmacSha256);
+
+                var tokeOptions = new JwtSecurityToken(
+                    issuer: _issuer,
+                    audience: _audience,
+                    claims: new List<Claim>(),
+                    expires: DateTime.Now.AddHours(4),
+                    signingCredentials: signinCredentials);
+
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+
+                return Ok(new { Token = tokenString });
             }
-            if(user != null)
-            {
-                return Ok(user);
-            }
-            //if (user.UserName == "user" && user.Password == "adm")
-            //{
-            //    var _secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            //    var _issuer = _config["Jwt:Issuer"];
-            //    var _audience = _config["Jwt:Audience"];
-
-                //    var signinCredentials = new SigningCredentials(_secretKey, SecurityAlgorithms.HmacSha256);
-
-                //    var tokeOptions = new JwtSecurityToken(
-                //        issuer: _issuer,
-                //        audience: _audience,
-                //        claims: new List<Claim>(),
-                //        expires: DateTime.Now.AddHours(4),
-                //        signingCredentials: signinCredentials);
-
-                //    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-
-                //    return Ok(new { Token = tokenString });
-                //}
             else
             {
-                return Unauthorized();
+                return BadRequest("Request do cliente inválido");
             }
         }
     }

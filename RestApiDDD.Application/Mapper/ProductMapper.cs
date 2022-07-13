@@ -13,6 +13,7 @@ public class ProductMapper : IProductMapper
             Id = productDto.Id,
             Name = productDto.Name!,
             Value = productDto.Value,
+            Quantity = productDto.Quantity
         };
     }
 
@@ -23,6 +24,7 @@ public class ProductMapper : IProductMapper
             Id = product.Id,
             Name = product.Name,
             Value = product.Value,
+            Quantity = product.Quantity
         });
     }
 
@@ -33,6 +35,7 @@ public class ProductMapper : IProductMapper
             Id = product.Id,
             Name = product.Name,
             Value = product.Value,
+            Quantity = product.Quantity
         };
     }
 }

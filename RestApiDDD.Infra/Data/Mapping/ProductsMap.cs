@@ -19,5 +19,9 @@ public class ProductsMap : IEntityTypeConfiguration<Product>
             .HasColumnName("value");
         builder.Property(prop => prop.IsAvailable)
             .HasColumnName("is_available");
+        builder.Property(prop => prop.Quantity)
+            .HasColumnName("quantity");
+        builder.Property(prop => prop.CreatedOn)
+            .HasColumnName("created_on");
     }
 }

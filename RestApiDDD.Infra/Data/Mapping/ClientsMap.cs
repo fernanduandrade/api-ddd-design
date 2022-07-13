@@ -13,8 +13,6 @@ public class ClientsMap : IEntityTypeConfiguration<Client>
         
         builder.Property(prop => prop.Id)
             .HasColumnName("id");
-        builder.Property(prop => prop.Email)
-            .HasColumnName("email");
         builder.Property(prop => prop.Name)
             .HasColumnName("name");
         builder.Property(prop => prop.CreatedOn)
@@ -23,5 +21,11 @@ public class ClientsMap : IEntityTypeConfiguration<Client>
             .HasColumnName("last_name");
         builder.Property(prop => prop.IsActive)
             .HasColumnName("is_active");
+        builder.Property(prop => prop.Phone)
+            .HasColumnName("phone");
+        builder.Property(prop => prop.Debt)
+            .HasColumnName("debt");
+        builder.Property(prop => prop.Debt)
+            .HasColumnName("credit");
     }
 }

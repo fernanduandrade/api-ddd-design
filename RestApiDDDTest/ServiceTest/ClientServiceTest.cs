@@ -37,7 +37,6 @@ public class ClientServiceTest
         {
             Name = "Fernando",
             LastName = "Andrade",
-            Email = "nando@gmail.com",
             
         };
         var result = await _clientServiceApplication.Add(requestDTO);
@@ -50,7 +49,6 @@ public class ClientServiceTest
         ClientDTO requestDTO = new ClientDTO
         {
             LastName = "Andrade",
-            Email = "nando@gmail.com",
         };
         var result = await _clientServiceApplication.Add(requestDTO);
         Assert.Equal("Error ao cadastrar o cliente, nome do cliente não enviado.", result.Message);
@@ -67,7 +65,6 @@ public class ClientServiceTest
             Id = id,
             Name = "Fernando",
             LastName = "Andrade",
-            Email = "nando@gmail.com",
         };
 
         var result = await _clientServiceApplication.Remove(requestDTO);

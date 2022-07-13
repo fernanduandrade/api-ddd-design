@@ -6,4 +6,5 @@ public record ProductDTO
     public string? Name { get; init; }
     public decimal Value { get; init; }
     public bool IsAvailable { get; init; }
+    public int Quantity { get; init; }
 }
