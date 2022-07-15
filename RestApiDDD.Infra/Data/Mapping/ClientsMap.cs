@@ -25,7 +25,7 @@ public class ClientsMap : IEntityTypeConfiguration<Client>
             .HasColumnName("phone");
         builder.Property(prop => prop.Debt)
             .HasColumnName("debt");
-        builder.Property(prop => prop.Debt)
+        builder.Property(prop => prop.Credit)
             .HasColumnName("credit");
     }
 }

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using RestApiDDD.Application.DTOs;
 using RestApiDDD.Application.Interfaces;
 
@@ -11,7 +10,7 @@ namespace RestApiDDD.API.Controllers;
 public class ClientController : ControllerBase
 {
     private readonly IClientServiceApplication _clientService;
-    public ClientController(IClientServiceApplication clientService, IMemoryCache memoryCache)
+    public ClientController(IClientServiceApplication clientService)
     {
         _clientService = clientService;
     }

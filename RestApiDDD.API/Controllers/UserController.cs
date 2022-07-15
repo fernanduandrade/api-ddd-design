@@ -39,7 +39,6 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-    [Authorize]
     [HttpPost]
     [ProducesResponseType(typeof(string), 400)]
     [ProducesResponseType(typeof(UserDTO), 201)]
