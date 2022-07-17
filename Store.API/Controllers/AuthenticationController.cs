@@ -24,9 +24,9 @@ namespace Store.API.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDTO request)
         {
             if (!ModelState.IsValid) return BadRequest();
-            var user = await _userService.GetUser(request.Email!, request.Password!);
+            var result = await _userService.GetUser(request.Email!, request.Password!);
 
-            if (user != null)
+            if (result.DataResult != null)
             {
                 var _secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
                 var _issuer = _config["Jwt:Issuer"];
@@ -47,7 +47,7 @@ namespace Store.API.Controllers
             }
             else
             {
-                return BadRequest("Request do cliente inválido");
+                return BadRequest(result);
             }
         }
     }

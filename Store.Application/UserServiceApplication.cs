@@ -3,6 +3,7 @@ using Store.Application.Interfaces;
 using Store.Application.Interfaces.Mapper;
 using Store.Domain.Core.Interfaces.Services;
 using Store.Domain.Enums;
+using Store.Domain.Utility;
 
 namespace Store.Application;
 
@@ -18,6 +19,7 @@ public class UserServiceApplication : IUserServiceApplication
     public async Task<ResponseDTO> Add(UserDTO userDTO)
     {
         var user = _userMapper.MapperDtoToEntity(userDTO);
+        user.Password = HashPassword.EncodePasswordBase64(user.Password);
         await _userService.Add(user);
 
         return new ResponseDTO
@@ -83,12 +85,23 @@ public class UserServiceApplication : IUserServiceApplication
 
     public async Task<ResponseDTO> GetUser(string email, string password)
     {
-        var user = await _userService.GetUser(email, password);
+        var encodePassword = HashPassword.EncodePasswordBase64(password);
+        var user = await _userService.GetUser(email, encodePassword);
+        if(user == null)
+        {
+            return new ResponseDTO
+            {
+                Type = ResponseTypeEnum.Warning,
+                Message = "Senha incorreta!",
+                DataResult = null
+            };
+            
+        }
         return new ResponseDTO
         {
             Type = ResponseTypeEnum.Success,
             Message = "Operação concluida com sucesso.",
-            DataResult = user!
+            DataResult = user
         };
     }
 }
