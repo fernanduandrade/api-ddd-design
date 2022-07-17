@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="CrossCutting\Interfaces" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Class1.cs" />
+      <Compile Remove="CrossCutting\Mapper\**" />
+      <Compile Remove="CrossCutting\Interfaces\IClientMapper.cs" />
+      <Compile Remove="CrossCutting\Interfaces\IProductMapper.cs" />
+      <Compile Remove="Data\Mapping\ClientsMap\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac" Version="6.3.0" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Store.Application\Store.Application.csproj" />
+      <ProjectReference Include="..\Store.Domain.Core\Store.Domain.Core.csproj" />
+      <ProjectReference Include="..\Store.Domain.Services\Store.Domain.Services.csproj" />
+      <ProjectReference Include="..\Store.Domain\Store.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="CrossCutting\Mapper\**" />
+      <EmbeddedResource Remove="Data\Mapping\ClientsMap\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="CrossCutting\Mapper\**" />
+      <None Remove="Data\Mapping\ClientsMap\**" />
+    </ItemGroup>
+
+</Project>

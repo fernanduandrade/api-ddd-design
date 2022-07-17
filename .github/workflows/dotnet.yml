@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Test
-      run: dotnet test ./RestApiDDDTest
+      run: dotnet test ./StoreTest
     - name: Restore dependencies
-      run: dotnet restore ./RestApiDDD.API/RestApiDDD.API.csproj
+      run: dotnet restore ./Store.API/Store.API.csproj
     - name: Build
-      run: dotnet build ./RestApiDDD.API/RestApiDDD.API.csproj --no-restore
+      run: dotnet build ./Store.API/Store.API.csproj --no-restore
