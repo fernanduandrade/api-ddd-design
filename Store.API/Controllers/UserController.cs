@@ -10,10 +10,11 @@ namespace Store.API.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserServiceApplication _userService;
-
-    public UserController(IUserServiceApplication userService)
+    private readonly Microsoft.Extensions.Logging.ILogger _logger;
+    public UserController(IUserServiceApplication userService, ILogger<UserController> logger)
     {
         _userService = userService;
+        _logger = logger;
     }
 
     [Authorize]
@@ -44,15 +45,17 @@ public class UserController : ControllerBase
     [ProducesResponseType(typeof(UserDTO), 201)]
     public async Task<ActionResult> Create(UserDTO user)
     {
+        _logger.LogInformation("Início da chamada para criação do usuário");
         if (!ModelState.IsValid) return BadRequest();
         var result = await _userService.Add(user);
+        Log.Information("Fim da chamada");
         return Created("", result);
     }
 
     [Authorize]
     [HttpPut]
     [ProducesResponseType(typeof(string), 400)]
-    [ProducesResponseType(typeof(string), 200)]
+    [ProducesResponseType(typeof(UserDTO), 200)]
     public async Task<ActionResult> Update(UserDTO user)
     {
         if (!ModelState.IsValid) return BadRequest();
