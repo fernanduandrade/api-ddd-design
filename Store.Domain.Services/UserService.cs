@@ -13,8 +13,8 @@ public class UserService : BaseService<User>, IUserService
         _userRepository = userRepository;
     }
 
-    public async Task<User> GetUser(string email, string password)
+    public async Task<User> GetUser(string email)
     {
-        return await _userRepository.GetUser(email, password);
+        return await _userRepository.GetUser(email);
     }
 }

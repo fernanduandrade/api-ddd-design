@@ -4,5 +4,5 @@ namespace Store.Domain.Core.Interfaces.Services;
 
 public interface IUserService : IBaseService<User>
 {
-    Task<User> GetUser(string email, string password);
+    Task<User> GetUser(string email);
 }

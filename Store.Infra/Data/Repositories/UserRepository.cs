@@ -13,13 +13,13 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         _context = context;
     }
 
-    public async Task<User?> GetUser(string email, string password)
+    public async Task<User?> GetUser(string email)
     {
         try
         {
             return await _context
                 .Set<User>()
-                .FirstOrDefaultAsync(user => user.Email == email && user.Password == password);
+                .FirstOrDefaultAsync(user => user.Email == email);
         }
         catch (Exception ex)
         {
