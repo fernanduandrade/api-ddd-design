@@ -42,7 +42,6 @@ namespace Store.API.Controllers
                     signingCredentials: signinCredentials);
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-
                 return Ok(new { Token = tokenString });
             }
             else

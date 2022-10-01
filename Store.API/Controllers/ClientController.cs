@@ -17,7 +17,7 @@ public class ClientController : ControllerBase
 
     [Authorize]
     [HttpGet]
-    [ProducesResponseType(typeof(List<string>), 200)]
+    [ProducesResponseType(typeof(List<string>), 400)]
     [ProducesResponseType(typeof(List<ClientDTO>), 200)]
     public async Task<IActionResult> GetAll()
     {

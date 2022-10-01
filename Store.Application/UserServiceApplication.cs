@@ -84,6 +84,7 @@ public class UserServiceApplication : IUserServiceApplication
 
     public async Task<ResponseDTO> GetUser(string email, string password)
     {
+        throw new Exception("Error ao obter o usuário, teste de middleware");
         var user = await _userService.GetUser(email);
         if (user == null)
         {

@@ -9,6 +9,7 @@ using Store.Infra.Data;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Store.API;
+using Store.API.Middlewares;
 
 try
 {
@@ -78,8 +79,9 @@ try
 
     app.MapControllers();
 
-    app.UseMiddleware<ErrorHandlingMiddleware>();
     app.UseMiddleware<RequestSerilogMiddleware>();
+    app.UseMiddleware(typeof(MiddlewareError));
+    app.UseMiddleware<ErrorHandlingMiddleware>();
     app.Run();
 
 }
