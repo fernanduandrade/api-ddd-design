@@ -1,6 +1,6 @@
 ﻿using Serilog.Context;
 
-namespace Store.API
+namespace Store.API.Middlewares
 {
     public class RequestSerilogMiddleware
     {

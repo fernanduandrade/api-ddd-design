@@ -4,22 +4,26 @@ using System.Net;
 
 namespace Store.API.Middlewares
 {
-    public class MiddlewareError
+    public class ErrorHandlingMiddleware
     {
-        private readonly RequestDelegate _next;
-        private readonly Microsoft.Extensions.Logging.ILogger _log;
+        private readonly RequestDelegate next;
 
-        public MiddlewareError(RequestDelegate next, ILoggerFactory loggerFactory)
+        public ErrorHandlingMiddleware(RequestDelegate next)
         {
-            _next = next;
-            _log = loggerFactory.CreateLogger("MiddlewareErrorLog");
+            this.next = next;
         }
 
         public async Task Invoke(HttpContext context)
         {
             try
             {
-                await _next(context);
+                context.Request.EnableBuffering();
+                var stream = context.Request.Body;
+                stream.Seek(0, SeekOrigin.Begin);
+                using var reader = new StreamReader(stream);
+                var payloadString = await reader.ReadToEndAsync();
+                Log.Information(payloadString);
+                await next(context);
             }
             catch (Exception ex)
             {
@@ -27,9 +31,8 @@ namespace Store.API.Middlewares
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-
             ResponseDTO errorResponseVm;
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").ToLower() == "development" ||
@@ -38,7 +41,7 @@ namespace Store.API.Middlewares
                 errorResponseVm = new ResponseDTO
                 {
                     Type = Domain.Enums.ResponseTypeEnum.Error,
-                    Message = $"{ex.Message} {ex?.InnerException?.Message}"
+                    Message = $"{exception.Message} {exception?.InnerException?.Message}"
                 };
             }
             else
@@ -50,15 +53,23 @@ namespace Store.API.Middlewares
                 };
             }
 
-            _log.LogError($"Error: {ex.Message}");
-            _log.LogError($"Stack: {ex.StackTrace}");
+            Log.Error($"Error: {exception.Message}");
+            Log.Error($"Stack: {exception.StackTrace}");
+
 
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             var jsonSettings = new JsonSerializerSettings();
             jsonSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
             var result = JsonConvert.SerializeObject(errorResponseVm, jsonSettings);
+
+
+            Log.Error(exception, "Error");
+
+            var code = HttpStatusCode.InternalServerError;
+
             context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);
         }
     }

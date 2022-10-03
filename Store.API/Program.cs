@@ -80,7 +80,6 @@ try
     app.MapControllers();
 
     app.UseMiddleware<RequestSerilogMiddleware>();
-    app.UseMiddleware(typeof(MiddlewareError));
     app.UseMiddleware<ErrorHandlingMiddleware>();
     app.Run();
 
