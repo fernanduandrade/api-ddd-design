@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace Store.Domain.Enums;
 
 public enum ResponseTypeEnum
