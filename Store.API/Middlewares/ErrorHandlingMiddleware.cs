@@ -23,6 +23,7 @@ namespace Store.API.Middlewares
                 using var reader = new StreamReader(stream);
                 var payloadString = await reader.ReadToEndAsync();
                 Log.Information(payloadString);
+                context.Request.Body.Position = 0;
                 await next(context);
             }
             catch (Exception ex)

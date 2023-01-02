@@ -24,7 +24,7 @@ namespace Store.API.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDTO request)
         {
             if (!ModelState.IsValid) return BadRequest();
-            var result = await _userService.GetUser(request.Email, request.Password);
+            var result = await _userService.GetUser(request?.Email, request?.Password);
 
             if (result.DataResult != null)
             {

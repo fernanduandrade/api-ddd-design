@@ -10,6 +10,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Store.API;
 using Store.API.Middlewares;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System.Text.Json;
+using System.Net.Mime;
 
 try
 {
@@ -22,7 +26,7 @@ try
     {
         var server = "localhost";
         var port = "5432";
-        var database = "DDD";
+        var database = "store";
         var username = "postgres";
         var password = "postgres";
         options.UseNpgsql($"Server={server};Port={port};Database={database};User Id={username};Password={password}", opt =>
@@ -55,6 +59,8 @@ try
 
                 };
             });
+    
+    builder.Services.AddHealthChecks();
 
     builder.Services.AddSwaggerGen(c =>
     {
@@ -64,6 +70,7 @@ try
     {
         builder.RegisterModule(new IocModule());
     });
+
 
     var app = builder.Build();
     // Configure the HTTP request pipeline.
@@ -81,7 +88,35 @@ try
 
     app.UseMiddleware<RequestSerilogMiddleware>();
     app.UseMiddleware<ErrorHandlingMiddleware>();
+
+    
+    app.UseHealthChecks("/status", new HealthCheckOptions
+    {
+        ResultStatusCodes =
+        {
+            [HealthStatus.Healthy] = StatusCodes.Status200OK,
+            [HealthStatus.Degraded] = StatusCodes.Status200OK,
+            [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable,
+        },
+        ResponseWriter = async (context, report) =>
+        {
+            var result = JsonSerializer.Serialize(
+                new
+                {
+                    currentTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    statusApplication = report.Status.ToString(),
+                });
+
+            context.Response.ContentType = MediaTypeNames.Application.Json;
+            await context.Response.WriteAsync(result);
+        }
+    });
+
+    app.MapHealthChecks("/status")
+    .RequireAuthorization();
+
     app.Run();
+    
 
 }
 catch (Exception ex)
